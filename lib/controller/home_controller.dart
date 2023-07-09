@@ -90,7 +90,7 @@ class HomeController extends GetxController {
         _localProductService.assignAllPopularProducts(popularProducts: popularProductListFromJson(result.body));
       }
     }finally{
-      print(popularProductList.length);
+     // print(popularProductList.length);
       isPopularProductLoading(false);
     }
   }
