@@ -4,9 +4,9 @@ import 'package:grocery_app/model/product.dart';
 import 'package:grocery_app/service/remote_service/remote_product.dart';
 
 class ProductController extends GetxController{
+
   static ProductController instance = Get.find();
   TextEditingController searchTextEditingController = TextEditingController();
-
   RxString searchVal = ''.obs;
   RxList<Product> productList = List<Product>.empty(growable: true).obs;
   RxBool isProductLoading = false.obs;
@@ -30,7 +30,7 @@ class ProductController extends GetxController{
 
     }finally{
       isProductLoading(false);
-      print(productList.length);
+   //   print(productList.length);
     }
   }
 
@@ -46,6 +46,22 @@ class ProductController extends GetxController{
     }finally{
       isProductLoading(false);
       print(productList.length);
+
+    }
+  }
+
+  void getProductByCategory({required int id}) async{
+    try{
+      isProductLoading(true);
+      var result = await RemoteProductService().getByCategory(id: id);
+
+      if(result != null){
+        productList.assignAll(productListFromJson(result.body));
+      }
+
+    }finally{
+      isProductLoading(false);
+      //print(productList.length);
 
     }
   }
